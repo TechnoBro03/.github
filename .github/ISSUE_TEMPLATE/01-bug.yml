@@ -61,7 +61,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        "Before submitting, please ensure that you have checked the following:
+        Before submitting, please ensure that you have checked the following:
         - [ ] I have searched the issue tracker for similar issues.
         - [ ] I have provided all necessary information.
-        - [ ] I have added any relevant labels to this issue."
+        - [ ] I have added any relevant labels to this issue.
