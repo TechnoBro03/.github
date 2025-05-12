@@ -4,7 +4,7 @@ name: Feature Request
 description: Propose a new feature or enhancement.
 title: "[ENHANCEMENT] "
 labels: ["enhancement"]
-assignees:
+# assignees:
   # - TechnoBro03
 
 body:

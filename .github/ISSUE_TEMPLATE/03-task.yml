@@ -4,7 +4,7 @@ name: Task
 description: A non-bug, non-feature piece of work.
 title: "[TASK] "
 labels: ["task"]
-assignees:
+# assignees:
   # - TechnoBro03
 
 body:

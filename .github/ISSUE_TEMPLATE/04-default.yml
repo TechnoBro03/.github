@@ -4,7 +4,7 @@ name: General Issue
 description: A catch-all issue template for general use.
 title: "[ISSUE] "
 labels: []
-assignees:
+# assignees:
   # - TechnoBro03
 
 body:
