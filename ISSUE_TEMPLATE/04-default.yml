@@ -1,0 +1,30 @@
+# For more information on how to create issue templates, see: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+
+name: General Issue
+description: A catch-all issue template for general use.
+title: "[ISSUE] "
+labels: []
+assignees:
+  # - TechnoBro03
+
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for opening an issue! Please fill out this form to help us understand the problem or request.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Please provide a detailed description of the issue, including any relevant context and expected outcomes.
+      placeholder: A clear and concise description of what the issue is.
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        "Before submitting, please ensure that you have checked the following:
+        - [ ] I have searched the issue tracker for similar issues.
+        - [ ] I have provided all necessary information.
+        - [ ] I have added any relevant labels to this issue."

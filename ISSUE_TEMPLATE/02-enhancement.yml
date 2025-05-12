@@ -1,0 +1,30 @@
+# For more information on how to create issue templates, see: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+
+name: Feature Request
+description: Propose a new feature or enhancement.
+title: "[ENHANCEMENT] "
+labels: ["enhancement"]
+assignees:
+  # - TechnoBro03
+
+body:
+  - type: markdown
+    attributes:
+      value: Please fill out this form to help us understand your feature request.
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the feature or enhancement you would like to propose. Please provide a detailed description, including the problem it solves and any relevant context.
+      placeholder: A new feature that allows users to ...
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        "Before submitting, please ensure that you have checked the following:
+        - [ ] I have searched the issue tracker for similar issues.
+        - [ ] I have provided all necessary information.
+        - [ ] I have added any relevant labels to this issue."

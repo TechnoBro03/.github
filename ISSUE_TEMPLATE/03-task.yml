@@ -1,0 +1,30 @@
+# For more information on how to create issue templates, see: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+
+name: Task
+description: A non-bug, non-feature piece of work.
+title: "[TASK] "
+labels: ["task"]
+assignees:
+  # - TechnoBro03
+
+body:
+  - type: markdown
+    attributes:
+      value: Please fill out this form to help us understand the work.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Please provide a detailed description of the task, including any relevant context and expected outcomes.
+      placeholder: What needs to be done?
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        "Before submitting, please ensure that you have checked the following:
+        - [ ] I have searched the issue tracker for similar issues.
+        - [ ] I have provided all necessary information.
+        - [ ] I have added any relevant labels to this issue."

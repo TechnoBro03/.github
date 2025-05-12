@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+default_issue_template: 04-default.yml
+
+# Add up to 6 quick links at the bottom of the “Open new issue” page
+contact_links:
+  # - name: Documentation
+  #   url: https://example.com/docs
+  #   about: “Read the full guides and API reference”

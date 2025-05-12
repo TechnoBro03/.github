@@ -1,0 +1,67 @@
+# For more information on how to create issue templates, see: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+
+name: Bug Report
+description: File a bug report.
+title: "[Bug] "
+labels: ["bug"]
+assignees:
+  # - TechnoBro03
+
+body:
+  - type: markdown
+    attributes:
+      value: Please fill out this form to help us track down the issue.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Please provide a detailed description of the bug, expected behavior, screenshots, and any other relevant information.
+      placeholder: A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Please provide a step-by-step guide to reproduce the bug.
+      placeholder: 1. Go to ...
+        2. Click on ...
+        3. Scroll down to ...
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+
+  -type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this bug?
+      options:
+        - Critical
+        - Major
+        - Minor
+        - Trivial
+      default: 0
+
+  - type: input
+    id: version
+    attributes:
+      label: Release version (if applicable)
+      placeholder: e.g. `v1.2.3`
+
+  - type: markdown
+    attributes:
+      value: |
+        "Before submitting, please ensure that you have checked the following:
+        - [ ] I have searched the issue tracker for similar issues.
+        - [ ] I have provided all necessary information.
+        - [ ] I have added any relevant labels to this issue."
