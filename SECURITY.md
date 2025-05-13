@@ -7,7 +7,7 @@ I take the security of my software, services, and open source code repositories 
 | Version          | Supported       |
 |------------------|-----------------|
 | Latest tag       | ✅ Yes          |
-| Previous tag     | ❌ Yes          |
+| Previous tag     | ❌ No           |
 | Older than above | ❌ No           |
 
 
