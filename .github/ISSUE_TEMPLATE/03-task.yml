@@ -2,7 +2,7 @@
 
 name: Task
 description: A non-bug, non-feature piece of work.
-title: "[TASK] "
+title: "[Task] "
 labels: ["task"]
 # assignees:
   # - TechnoBro03

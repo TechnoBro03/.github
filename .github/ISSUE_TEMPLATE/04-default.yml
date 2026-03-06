@@ -2,7 +2,7 @@
 
 name: General Issue
 description: A catch-all issue template for general use.
-title: "[ISSUE] "
+title: "[Issue] "
 labels: []
 # assignees:
   # - TechnoBro03
