@@ -1,0 +1,101 @@
+name: Reusable Python
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        description: Python version to install.
+        type: string
+        default: '3.12'
+      working-directory:
+        description: Directory that contains the Python project.
+        type: string
+        default: .
+      install-command:
+        description: Command used to install dependencies.
+        type: string
+        default: python -m pip install .[test]
+      mypy:
+        description: Run mypy.
+        type: boolean
+        default: true
+      mypy-command:
+        description: Command used to run mypy.
+        type: string
+        default: mypy .
+      test:
+        description: Run tests.
+        type: boolean
+        default: true
+      test-command:
+        description: Command used to run tests.
+        type: string
+        default: pytest
+      build-package:
+        description: Build Python package distributions.
+        type: boolean
+        default: false
+      build-command:
+        description: Command used to build package distributions.
+        type: string
+        default: python -m build
+      publish-testpypi:
+        description: Publish distributions to TestPyPI.
+        type: boolean
+        default: false
+      publish-pypi:
+        description: Publish distributions to PyPI.
+        type: boolean
+        default: false
+
+jobs:
+  python:
+    name: Python
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+          cache: pip
+
+      - name: Upgrade packaging tools
+        run: python -m pip install --upgrade pip build
+
+      - name: Install dependencies
+        run: ${{ inputs.install-command }}
+
+      - name: Run Mypy
+        if: inputs.mypy
+        run: ${{ inputs.mypy-command }}
+
+      - name: Run Tests
+        if: inputs.test
+        run: ${{ inputs.test-command }}
+
+      - name: Build package
+        if: inputs.build-package || inputs.publish-testpypi || inputs.publish-pypi
+        run: ${{ inputs.build-command }}
+
+      - name: Publish to TestPyPI
+        if: inputs.publish-testpypi
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          skip-existing: true
+          packages-dir: ${{ inputs.working-directory }}/dist
+
+      - name: Publish to PyPI
+        if: inputs.publish-pypi
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: ${{ inputs.working-directory }}/dist

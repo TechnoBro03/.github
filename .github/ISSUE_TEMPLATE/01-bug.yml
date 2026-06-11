@@ -1,67 +1,104 @@
-# For more information on how to create issue templates, see: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
-
 name: Bug Report
-description: File a bug report.
-title: "[Bug] "
-labels: ["bug"]
-# assignees:
-  # - TechnoBro03
+description: Report reproducible behavior that is broken or incorrect.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
 
 body:
   - type: markdown
     attributes:
-      value: Please fill out this form to help us track down the issue.
+      value: |
+        Thanks for reporting a bug. Clear reproduction steps and environment details help get it fixed faster.
 
   - type: textarea
-    id: description
+    id: summary
     attributes:
-      label: Description
-      description: Please provide a detailed description of the bug, expected behavior, screenshots, and any other relevant information.
-      placeholder: A clear and concise description of what the bug is.
+      label: Summary
+      description: Briefly describe what is broken.
+      placeholder: Describe the bug in one or two sentences.
     validations:
       required: true
 
   - type: textarea
-    id: reproduction
+    id: steps-to-reproduce
     attributes:
-      label: Steps to reproduce
-      description: Please provide a step-by-step guide to reproduce the bug.
-      placeholder: 1. Go to ...
-        2. Click on ...
-        3. Scroll down to ...
-        4. See error
+      label: Steps to Reproduce
+      description: Provide the smallest set of steps needed to reproduce the issue.
+      placeholder: |
+        1. Go to ...
+        2. Run ...
+        3. Observe ...
     validations:
       required: true
 
   - type: textarea
-    id: logs
+    id: expected-behavior
     attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
+      label: Expected Behavior
+      description: What should have happened?
+      placeholder: I expected ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Instead ...
+    validations:
+      required: true
 
   - type: dropdown
     id: severity
     attributes:
       label: Severity
-      description: How severe is this bug?
+      description: How much does this affect usage?
       options:
-        - Critical
-        - Major
-        - Minor
-        - Trivial
-      default: 0
+        - Blocking
+        - High
+        - Medium
+        - Low
+      default: 2
+    validations:
+      required: true
 
   - type: input
     id: version
     attributes:
-      label: Release version (if applicable)
-      placeholder: e.g. `v1.2.3`
+      label: Version
+      description: Package, application, or commit version where this occurs.
+      placeholder: v1.2.3, 1.2.3, or commit SHA
 
-  - type: markdown
+  - type: textarea
+    id: environment
     attributes:
-      value: |
-        Before submitting, please ensure that you have checked the following:
-        - [ ] I have searched the issue tracker for similar issues.
-        - [ ] I have provided all necessary information.
-        - [ ] I have added any relevant labels to this issue.
+      label: Environment
+      description: Include OS, runtime, browser, device, container image, or other relevant environment details.
+      placeholder: |
+        OS:
+        Runtime:
+        Browser:
+        Other:
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or Error Output
+      description: Paste relevant logs, stack traces, or screenshots. Logs will be formatted as code.
+      render: shell
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add links, screenshots, suspected cause, workarounds, or related issues.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-Submission Checklist
+      options:
+        - label: I have searched existing issues for duplicates.
+          required: true
+        - label: I have included enough information to reproduce the issue.
+          required: true
