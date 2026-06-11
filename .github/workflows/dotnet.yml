@@ -1,0 +1,108 @@
+name: Reusable .NET
+
+on:
+  workflow_call:
+    inputs:
+      dotnet-version:
+        description: .NET SDK version to install.
+        type: string
+        default: 10.x
+      working-directory:
+        description: Directory that contains the solution or project.
+        type: string
+        default: .
+      target:
+        description: Optional solution or project path. Defaults to the working directory.
+        type: string
+        default: .
+      configuration:
+        description: Build configuration.
+        type: string
+        default: Release
+      test:
+        description: Run dotnet test.
+        type: boolean
+        default: true
+      test-filter:
+        description: Optional dotnet test filter expression.
+        type: string
+        default: ''
+      publish:
+        description: Run dotnet publish after build.
+        type: boolean
+        default: false
+      publish-output:
+        description: Output directory for dotnet publish.
+        type: string
+        default: ./artifacts/publish
+      pack:
+        description: Run dotnet pack after build.
+        type: boolean
+        default: false
+      package-output:
+        description: Output directory for NuGet packages.
+        type: string
+        default: ./artifacts/nuget
+      publish-nuget:
+        description: Push packages to NuGet.org. Requires NUGET_API_KEY.
+        type: boolean
+        default: false
+    secrets:
+      NUGET_API_KEY:
+        required: false
+
+jobs:
+  dotnet:
+    name: .NET
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}
+
+      - name: Restore dependencies
+        run: dotnet restore "${{ inputs.target }}"
+
+      - name: Build
+        run: dotnet build "${{ inputs.target }}" --no-restore --configuration "${{ inputs.configuration }}"
+
+      - name: Test
+        if: inputs.test
+        shell: bash
+        run: |
+          filter_args=()
+          if [ -n "${{ inputs.test-filter }}" ]; then
+            filter_args+=(--filter "${{ inputs.test-filter }}")
+          fi
+
+          dotnet test "${{ inputs.target }}" --no-build --configuration "${{ inputs.configuration }}" --verbosity normal "${filter_args[@]}"
+
+      - name: Publish
+        if: inputs.publish
+        run: dotnet publish "${{ inputs.target }}" --no-build --configuration "${{ inputs.configuration }}" --output "${{ inputs.publish-output }}"
+
+      - name: Pack
+        if: inputs.pack || inputs.publish-nuget
+        run: dotnet pack "${{ inputs.target }}" --no-build --configuration "${{ inputs.configuration }}" --output "${{ inputs.package-output }}"
+
+      - name: Push to NuGet.org
+        if: inputs.publish-nuget
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        shell: bash
+        run: |
+          if [ -z "${NUGET_API_KEY:-}" ]; then
+            echo "NUGET_API_KEY is required when publish-nuget is true" >&2
+            exit 1
+          fi
+
+          dotnet nuget push "${{ inputs.package-output }}"/*.nupkg --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate

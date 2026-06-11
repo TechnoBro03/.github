@@ -1,30 +1,59 @@
-# For more information on how to create issue templates, see: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
-
 name: General Issue
-description: A catch-all issue template for general use.
-title: "[Issue] "
-labels: []
-# assignees:
-  # - TechnoBro03
+description: Open a general issue that does not fit the other templates.
+title: "[Issue]: "
+labels: ["needs-triage"]
 
 body:
   - type: markdown
     attributes:
-      value: Thanks for opening an issue! Please fill out this form to help us understand the problem or request.
+      value: |
+        Use this template only when the bug, feature, and task templates do not fit.
 
-  - type: textarea
-    id: description
+  - type: dropdown
+    id: issue-type
     attributes:
-      label: Description
-      description: Please provide a detailed description of the issue, including any relevant context and expected outcomes.
-      placeholder: A clear and concise description of what the issue is.
+      label: Issue Type
+      description: What kind of issue is this?
+      options:
+        - Question
+        - Documentation
+        - Configuration
+        - Release
+        - Other
+      default: 4
     validations:
       required: true
 
-  - type: markdown
+  - type: textarea
+    id: summary
     attributes:
-      value: |
-        Before submitting, please ensure that you have checked the following:
-        - [ ] I have searched the issue tracker for similar issues.
-        - [ ] I have provided all necessary information.
-        - [ ] I have added any relevant labels to this issue.
+      label: Summary
+      description: Briefly describe the issue.
+      placeholder: I need help with ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Include relevant context, examples, links, screenshots, logs, or expected outcomes.
+      placeholder: Add details here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: related
+    attributes:
+      label: Related Links or Issues
+      description: Add related issues, pull requests, discussions, documentation, or external references.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-Submission Checklist
+      options:
+        - label: I have checked whether another issue template would be more appropriate.
+          required: true
+        - label: I have searched existing issues for duplicates.
+          required: true

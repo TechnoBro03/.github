@@ -1,30 +1,82 @@
-# For more information on how to create issue templates, see: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
-
 name: Feature Request
-description: Propose a new feature or enhancement.
-title: "[Enhancement] "
-labels: ["enhancement"]
-# assignees:
-  # - TechnoBro03
+description: Suggest a new capability or improvement.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
 
 body:
   - type: markdown
     attributes:
-      value: Please fill out this form to help us understand your feature request.
+      value: |
+        Use this form for new features, behavior changes, and product improvements.
 
   - type: textarea
-    id: proposal
+    id: summary
     attributes:
-      label: Proposal
-      description: Describe the feature or enhancement you would like to propose. Please provide a detailed description, including the problem it solves and any relevant context.
-      placeholder: A new feature that allows users to ...
+      label: Summary
+      description: Describe the feature or improvement in a few sentences.
+      placeholder: I would like ...
     validations:
       required: true
 
-  - type: markdown
+  - type: textarea
+    id: problem
     attributes:
-      value: |
-        Before submitting, please ensure that you have checked the following:
-        - [ ] I have searched the issue tracker for similar issues.
-        - [ ] I have provided all necessary information.
-        - [ ] I have added any relevant labels to this issue.
+      label: Problem or Motivation
+      description: What problem does this solve? Who benefits from it?
+      placeholder: This is useful because ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the behavior, API, UI, workflow, or implementation you want.
+      placeholder: The solution could work by ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: List alternatives, current workarounds, or reasons existing behavior is not enough.
+      placeholder: I considered ...
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What must be true for this feature to be considered complete?
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+
+  - type: dropdown
+    id: breaking-change
+    attributes:
+      label: Breaking Change
+      description: Would this require users to change existing code, configuration, data, or workflows?
+      options:
+        - 'No'
+        - 'Yes'
+        - Not sure
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add mockups, links, examples, references, or related issues.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-Submission Checklist
+      options:
+        - label: I have searched existing issues for duplicates or similar requests.
+          required: true
+        - label: I have described the problem and the desired outcome.
+          required: true
